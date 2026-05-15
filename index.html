@@ -8,7 +8,6 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            /* Сочные, живые цвета как на фото */
             --bg: #020617;
             --bg-accent: radial-gradient(circle at 50% -20%, #1e40af 0%, #020617 80%);
             --accent: #3b82f6;
@@ -44,7 +43,6 @@
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-        /* Header */
         header { display: flex; justify-content: space-between; align-items: center; padding: 30px 0; }
         .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 28px; letter-spacing: -1px; }
         .logo i { color: var(--accent); filter: drop-shadow(0 0 8px var(--accent-glow)); }
@@ -54,7 +52,6 @@
         .theme-btn { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; }
         .theme-btn:hover { transform: rotate(15deg); border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
 
-        /* Hero */
         .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; padding: 80px 0; align-items: center; }
         .badge { background: rgba(59, 130, 246, 0.15); color: var(--accent); padding: 8px 18px; border-radius: 50px; font-size: 14px; font-weight: 700; margin-bottom: 25px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--accent); }
         
@@ -75,13 +72,13 @@
         }
         .btn-check:hover { transform: scale(1.05); filter: brightness(1.1); }
 
-        /* Card Result */
         .res-card { 
             background: linear-gradient(145deg, #0f172a, #020617); 
             border: 1px solid var(--border); border-radius: 30px; overflow: hidden; 
             box-shadow: 0 50px 100px rgba(0,0,0,0.6); position: relative;
         }
         .br-head { background: rgba(255, 255, 255, 0.03); padding: 18px 25px; display: flex; align-items: center; gap: 15px; }
+        .dots span { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; }
         .url-line { background: rgba(0, 0, 0, 0.4); flex: 1; border-radius: 10px; padding: 8px 15px; font-size: 13px; color: var(--muted); border: 1px solid var(--border); }
         
         .card-inner { padding: 50px; text-align: center; }
@@ -96,7 +93,6 @@
 
         .stat-l { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
 
-        /* Features Grid */
         .features { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; margin: 80px 0; }
         .f-item { 
             background: var(--card); border: 1px solid var(--border); padding: 30px; border-radius: 24px; 
@@ -107,7 +103,6 @@
         .f-item h3 { font-size: 16px; margin-bottom: 12px; font-weight: 700; }
         .f-item p { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
-        /* How it works */
         .how { padding: 100px 0; text-align: center; }
         .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-top: 80px; position: relative; }
         .steps::before { 
@@ -121,13 +116,18 @@
             box-shadow: 0 0 30px var(--accent-glow); border: 5px solid var(--bg);
         }
 
-        /* Animations */
         @keyframes scan {
-            0% { border-top-color: var(--accent); }
-            50% { border-top-color: var(--green); }
-            100% { border-top-color: var(--accent); }
+            0% { border-top-color: var(--accent); transform: rotate(0deg); }
+            100% { border-top-color: var(--green); transform: rotate(360deg); }
         }
-        .scanning { animation: scan 1s infinite linear; }
+        .scanning { animation: scan 1.5s infinite linear; }
+
+        @media (max-width: 968px) {
+            .hero { grid-template-columns: 1fr; text-align: center; }
+            .features { grid-template-columns: 1fr 1fr; }
+            .steps { grid-template-columns: 1fr 1fr; }
+            h1 { font-size: 40px; }
+        }
     </style>
 </head>
 <body>
@@ -152,7 +152,7 @@
             <p id="t-desc" style="color:var(--muted); font-size: 19px; margin-bottom:45px">Анализируем десятки факторов, чтобы определить, насколько сайт безопасен для вас и ваших данных.</p>
             <div class="input-box">
                 <i data-lucide="link" style="margin: 15px; color:var(--accent)"></i>
-                <input type="text" id="urlIn" placeholder="Введите адрес для проверки..." value="https://music.yandex.kz/">
+                <input type="text" id="urlIn" placeholder="Введите адрес для проверки..." value="https://google.com">
                 <button class="btn-check" onclick="runCheck()" id="t-btn">Проверить сайт</button>
             </div>
             <p style="font-size: 13px; color: var(--muted); margin-top: 15px;"><i data-lucide="lock" size="13"></i> Проверка безопасна. Мы не сохраняем ваши данные.</p>
@@ -161,7 +161,7 @@
         <div class="res-card">
             <div class="br-head">
                 <div class="dots"><span style="background:#ff5f56"></span><span style="background:#ffbd2e"></span><span style="background:#27c93f"></span></div>
-                <div class="url-line" id="urlDisp">https://music.yandex.kz/</div>
+                <div class="url-line" id="urlDisp">https://google.com</div>
             </div>
             <div class="card-inner">
                 <div class="ring" id="mainRing">
@@ -238,48 +238,95 @@
         lucide.createIcons();
     }
 
-    function runCheck() {
-        const url = document.getElementById('urlIn').value.toLowerCase();
-        if(!url) return;
-        
+    async function runCheck() {
+        const urlIn = document.getElementById('urlIn').value.trim().toLowerCase();
+        if(!urlIn) return;
+
         const l = document.getElementById('langSelect').value;
         const d = langData[l];
         const ring = document.getElementById('mainRing');
         const scoreEl = document.getElementById('score');
         const labelEl = document.getElementById('t-status');
-        
-        document.getElementById('urlDisp').innerText = url;
+
+        // Сброс UI
+        document.getElementById('urlDisp').innerText = urlIn;
         ring.classList.add('scanning');
         labelEl.innerText = "...";
-        
-        let targetScore = 85;
-        let isDanger = false;
-        
-        if(url.includes('free') || url.includes('hack') || url.includes('win')) {
-            targetScore = 15;
-            isDanger = true;
-        }
+        scoreEl.innerText = "0";
 
-        let current = 0;
-        const interval = setInterval(() => {
-            current++;
-            scoreEl.innerText = current;
-            if(current >= targetScore) {
-                clearInterval(interval);
-                ring.classList.remove('scanning');
-                labelEl.innerText = isDanger ? d.danger : d.status;
-                labelEl.style.color = isDanger ? 'var(--red)' : 'var(--green)';
-                ring.style.borderTopColor = isDanger ? 'var(--red)' : 'var(--green)';
-                ring.style.boxShadow = isDanger ? '0 0 30px rgba(239, 68, 68, 0.4)' : '0 0 30px var(--green-glow)';
-                
-                document.getElementById('t-v1').innerText = isDanger ? d.vBad : d.vGood;
-                document.getElementById('t-v1').style.color = isDanger ? 'var(--red)' : 'var(--green)';
-                document.getElementById('t-v2').innerText = isDanger ? d.vNoSSL : d.vSSL;
-                document.getElementById('t-v2').style.color = isDanger ? 'var(--red)' : 'var(--green)';
-                document.getElementById('t-v3').innerText = isDanger ? d.vBad : d.vGood;
-                document.getElementById('t-v3').style.color = isDanger ? 'var(--red)' : 'var(--green)';
+        // ЛОГИКА АНАЛИЗА
+        let score = 10; // Базовый балл
+        let stats = { domain: false, ssl: false, safety: false };
+
+        try {
+            // 1. Очистка URL для API
+            const cleanUrl = urlIn.replace(/^https?:\/\//, '').split('/')[0];
+            
+            // 2. Реальная проверка DNS (существует ли сайт)
+            const dnsResponse = await fetch(`https://cloudflare-dns.com/dns-query?name=${cleanUrl}&type=A`, {
+                headers: { 'Accept': 'application/dns-json' }
+            });
+            const dnsData = await dnsResponse.json();
+            
+            if(dnsData.Status === 0) { 
+                score += 40; 
+                stats.domain = true; 
             }
-        }, 15);
+
+            // 3. Проверка SSL (HTTPS)
+            if(urlIn.startsWith('https://')) {
+                score += 30;
+                stats.ssl = true;
+            }
+
+            // 4. Подозрительные слова в URL
+            const redFlags = ['free', 'win', 'hack', 'gift', 'login', 'verify', 'money'];
+            const hasFlags = redFlags.some(word => cleanUrl.includes(word));
+            
+            if(!hasFlags && stats.domain) {
+                score += 18;
+                stats.safety = true;
+            } else if (hasFlags) {
+                score -= 30;
+            }
+
+            // Ограничение баллов
+            score = Math.max(5, Math.min(score, 98));
+
+            // Анимация счетчика
+            let current = 0;
+            const interval = setInterval(() => {
+                current++;
+                scoreEl.innerText = current;
+                if(current >= score) {
+                    clearInterval(interval);
+                    applyResult(score, stats, d, ring, labelEl);
+                }
+            }, 15);
+
+        } catch (e) {
+            labelEl.innerText = "Error";
+            ring.classList.remove('scanning');
+        }
+    }
+
+    function applyResult(score, stats, d, ring, labelEl) {
+        ring.classList.remove('scanning');
+        const isDanger = score < 50;
+
+        labelEl.innerText = isDanger ? d.danger : d.status;
+        labelEl.style.color = isDanger ? 'var(--red)' : 'var(--green)';
+        ring.style.borderTopColor = isDanger ? 'var(--red)' : 'var(--green)';
+        ring.style.boxShadow = isDanger ? '0 0 30px rgba(239, 68, 68, 0.4)' : '0 0 30px var(--green-glow)';
+
+        document.getElementById('t-v1').innerText = stats.domain ? d.vGood : d.vBad;
+        document.getElementById('t-v1').style.color = stats.domain ? 'var(--green)' : 'var(--red)';
+        
+        document.getElementById('t-v2').innerText = stats.ssl ? d.vSSL : d.vNoSSL;
+        document.getElementById('t-v2').style.color = stats.ssl ? 'var(--green)' : 'var(--red)';
+        
+        document.getElementById('t-v3').innerText = stats.safety ? d.vGood : d.vBad;
+        document.getElementById('t-v3').style.color = stats.safety ? 'var(--green)' : 'var(--red)';
     }
 
     lucide.createIcons();
